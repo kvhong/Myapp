@@ -8,91 +8,34 @@ import java.util.Scanner;
 
 public class Myapp {
 
-	private static Scanner scannernum;
-	private static Scanner scannersize;
-	@SuppressWarnings("unused")
-	private static FormExpression fe;
-
 	public static void main(String[] args) throws IOException {
-		int num=0;
-		int size=0;
-		FormExpression fe = new FormExpression();
-		Expression ex = new Expression();
-		Random r = new Random();
-		File que = new File("Exercises.txt");
-		File ans = new File("Answers.txt");
-		if(!que.exists()) {
-			que.createNewFile();
-		}
-		if(!ans.exists()) {
-			ans.createNewFile();
-		}
-		FileOutputStream fosque = new FileOutputStream(que);
-		FileOutputStream fosans = new FileOutputStream(ans);
 		while(true) {
-			System.out.println("请输入要生成的题目数(命令形式为:-n 自然数):");
-			scannernum = new Scanner(System.in);
-			String[] strnum = scannernum.nextLine().split(" ");
-			
-			if(strnum[0].equals("-n")&&strnum.length==2) {
-				if(Integer.parseInt(strnum[1])>=1) {
-				num = Integer.parseInt(strnum[1]);
-				
-				System.out.println("请输入题目中数值的最大值(命令形式为:-r 自然数):");
-				scannersize = new Scanner(System.in);
-				String[] strsize = scannersize.nextLine().split(" ");
-				
-				if(strsize[0].equals("-r")&&strsize.length==2) {
-					if(Integer.parseInt(strsize[1])>=2) {
-					size = Integer.parseInt(strsize[1]);
-					
-					for(int i=0;i<num;i++) {
-						int opernum =  r.nextInt(3)+1;
-						String res = fe.FormExpression(size, opernum);
-						String result = i+1 + "." + res +"\r\n";
-						byte[] print = result.getBytes(); 
-						fosque.write(print);
-						java.util.List<String> list = ex.process(res);
-						java.util.List<String> list2 = ex.simpleTosuffix(list);
-						Fenshu ansresult = ex.count(list2);
-						String ansres = null;
-						if(ansresult.getDenominator()==1) {
-							ansres = i+1 + "." +ansresult.getNumerator() + "\r\n";
-						}else {
-							if(ansresult.getNumerator()>ansresult.getDenominator()) {
-								int fz = ansresult.getNumerator();
-								int fm = ansresult.getDenominator();
-								int mut = fz / fm;
-								int newfz = fz % fm;
-								ansres = i+1 + "." + mut + "'" +newfz+"/"+fm + "\r\n";
-							}else if(ansresult.getNumerator()==ansresult.getDenominator()) {
-								ansres = i+1 + "." + "1" + "\r\n";
-							}else {
-								ansres = i+1 + "." +ansresult.getNumerator()+"/"+ansresult.getDenominator() + "\r\n";
-							}	
-						}
-						byte[] ansprint = ansres.getBytes();
-						fosans.write(ansprint);
-						System.out.println(res);
-						System.out.println(ansres);
-						}
-					fosque.flush();
-					fosans.flush();
-					fosque.close();
-					fosans.close();
-					}else {
-						System.out.println("-r参数设置错误，请重新输入，-n参数必须大于等于2!");
-					}
-				}else {
-					System.out.println("-r命令输入错误，请重新输入!");
+			Scanner scanner1;
+			System.out.println("请输入: 1或2 (1.生成算式;2.校对答案)");
+			Scanner scanner = new Scanner(System.in);
+			int what = scanner.nextInt();
+			if(what==1) {
+				build build = new build();
+				build.build();
+				System.out.println("是否结束: YES or NO");
+				scanner1 = new Scanner(System.in);
+				String exit = scanner1.nextLine();
+				if(exit.equals("YES")) {
+					break;
 				}
-				}else {
-					System.out.println("-n参数设置错误，请重新输入，-n参数必须大于等于1!");
+			}else if(what==2) {
+				CorrectandWrong correctandWrong = new CorrectandWrong();
+				correctandWrong.CorrectandWrong();
+				System.out.println("是否结束: YES or NO");
+				scanner1 = new Scanner(System.in);
+				String exit = scanner1.nextLine();
+				if(exit.equals("YES")) {
+					break;
 				}
 			}else {
-				System.out.println("-n命令输入错误，请重新输入!");
-			}
-		}	//while结束
+				System.out.println("输入错误，请重新输入!");
+			}//while结束
+		}
 	}
 	
 

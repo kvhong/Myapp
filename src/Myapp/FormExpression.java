@@ -1,5 +1,6 @@
 package Myapp;
 
+import java.util.List;
 import java.util.Random;
 
 public class FormExpression {
@@ -58,44 +59,58 @@ public class FormExpression {
 		str.append("="+" ");
 		
 		String[] judge = str.toString().split(" ");
-		for(int j=0;j<subcount;j++) {
-			for(int i=0;i<judge.length;i++) {
-				if(judge[i].equals("-")) {
-					Fenshu fs = new Fenshu();
-					if(fs.compute(judge[i-1], judge[i+1])) {
-						String temp=judge[i+1];
-						judge[i+1]=judge[i-1];
-						judge[i-1]=temp;
-					}
-				}
-			}
-		}
-//		for(int i=judge.length-1;i>=0;i-=2) {
-//			if(judge[i].equals("¡Â")) {
-//				if(judge[i+1].equals("0")||judge[i+1].startsWith("0")) {
-//					String temp=judge[i+1];
-//					judge[i+1]=judge[i-1];
-//					judge[i-1]=temp;
-//				}
-//			}
-//			if(judge.length>=6&&i>=2) {
-//				if(judge[i].equals("¡Á")&&judge[i-2].equals("¡Â")) {
-//					if(judge[i+1].equals("0")||judge[i+1].startsWith("0")) {
-//						String temp=judge[i+1];
-//						judge[i+1]=judge[i-3];
-//						judge[i-3]=temp;
-//					}else if(judge[i-1].equals("0")||judge[i-1].startsWith("0")) {
-//						String temp=judge[i-1];
-//						judge[i-1]=judge[i-3];
-//						judge[i-3]=temp;
+//		if(subcount>=2) {
+//			for(int j=0;j<subcount;j++) {
+//				for(int i=0;i<judge.length;i++) {
+//					if(judge[i].equals("-")) {
+//						Fenshu fs = new Fenshu();
+//						if(fs.compute(judge[i-1], judge[i+1])) {
+//							String temp=judge[i+1];
+//							judge[i+1]=judge[i-1];
+//							judge[i-1]=temp;
+//						}
 //					}
 //				}
 //			}
+//		}else if(subcount==1){
+			for(int i=1;i<judge.length-1;i+=2) {
+				if(judge[i].equals("-")) {
+					Fenshu fs = new Fenshu();
+					Expression ex = new Expression();
+					StringBuffer font = new StringBuffer();
+					StringBuffer back = new StringBuffer();
+					StringBuffer newstr = new StringBuffer();
+					List<String> fontlist;
+					List<String> backlist;
+					List<String> fontlist2;
+					List<String> backlist2;
+					for(int k=0;k<i;k++) {
+						font.append(judge[k]+" ");
+					}
+					for(int k=i+1;k<judge.length-1;k++) {
+						back.append(judge[k]+" ");
+					}
+					fontlist = ex.process(font.toString());
+					backlist = ex.process(back.toString());
+					fontlist2 = ex.simpleTosuffix(fontlist);
+					backlist2 = ex.simpleTosuffix(backlist);
+					Fenshu fontfs = ex.count(fontlist2);
+					Fenshu backfs = ex.count(backlist2);
+					String fontstr = fontfs.numerator+"/"+fontfs.denominator;
+					String backstr = backfs.numerator+"/"+backfs.denominator;
+					if(fs.compute(fontstr, backstr)) {
+						newstr.append(back.toString()+"- "+font.toString()+"= ");
+						String[] newjudge = newstr.toString().split(" ");
+						for(int k=0;k<newjudge.length;k++) {
+							judge[k]=newjudge[k];
+						}
+					}
+				}
+			}
 //		}
 		for(int i=0;i<judge.length;i++) {
 			strnew.append(judge[i]+" ");
 		}
-		
 		return strnew.toString();
 	}
 	String randominput(int num,Fenshu fenshu) {
