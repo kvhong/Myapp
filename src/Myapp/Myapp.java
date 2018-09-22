@@ -13,8 +13,8 @@ public class Myapp {
 			Scanner scanner1;
 			System.out.println("请输入: 1或2 (1.生成算式;2.校对答案)");
 			Scanner scanner = new Scanner(System.in);
-			int what = scanner.nextInt();
-			if(what==1) {
+			String what = scanner.nextLine();
+			if(what.equals("1")) {
 				build build = new build();
 				build.build();
 				System.out.println("是否结束: YES or NO");
@@ -23,7 +23,7 @@ public class Myapp {
 				if(exit.equals("YES")) {
 					break;
 				}
-			}else if(what==2) {
+			}else if(what.equals("2")) {
 				CorrectandWrong correctandWrong = new CorrectandWrong();
 				correctandWrong.CorrectandWrong();
 				System.out.println("是否结束: YES or NO");

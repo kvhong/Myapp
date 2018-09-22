@@ -16,7 +16,6 @@ public class FormExpression {
 		String oper;
 		Fenshu fenshu;
 		int divcount = 0;
-		int subcount = 0;
 		String[] numlist = new String[operatenum+1];
 		String[] operlist = new String[operatenum];
 		for(int i=0;i<operatenum;i++) {
@@ -24,9 +23,6 @@ public class FormExpression {
 			operlist[i]=oper;
 			if(oper.equals("¡Â")) {
 				divcount++;
-			}
-			if(oper.equals("-")) {
-				subcount++;
 			}
 		}
 		
@@ -59,20 +55,6 @@ public class FormExpression {
 		str.append("="+" ");
 		
 		String[] judge = str.toString().split(" ");
-//		if(subcount>=2) {
-//			for(int j=0;j<subcount;j++) {
-//				for(int i=0;i<judge.length;i++) {
-//					if(judge[i].equals("-")) {
-//						Fenshu fs = new Fenshu();
-//						if(fs.compute(judge[i-1], judge[i+1])) {
-//							String temp=judge[i+1];
-//							judge[i+1]=judge[i-1];
-//							judge[i-1]=temp;
-//						}
-//					}
-//				}
-//			}
-//		}else if(subcount==1){
 			for(int i=1;i<judge.length-1;i+=2) {
 				if(judge[i].equals("-")) {
 					Fenshu fs = new Fenshu();
@@ -107,12 +89,12 @@ public class FormExpression {
 					}
 				}
 			}
-//		}
 		for(int i=0;i<judge.length;i++) {
 			strnew.append(judge[i]+" ");
 		}
 		return strnew.toString();
 	}
+	
 	String randominput(int num,Fenshu fenshu) {
 		String numstr = num+"";
 		String fenshustr = fenshu.getNumerator() +"/"+fenshu.getDenominator();
