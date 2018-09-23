@@ -1,6 +1,5 @@
 package Myapp;
 
-import java.util.List;
 import java.util.Random;
 
 public class FormExpression {
@@ -62,22 +61,14 @@ public class FormExpression {
 					StringBuffer font = new StringBuffer();
 					StringBuffer back = new StringBuffer();
 					StringBuffer newstr = new StringBuffer();
-					List<String> fontlist;
-					List<String> backlist;
-					List<String> fontlist2;
-					List<String> backlist2;
 					for(int k=0;k<i;k++) {
 						font.append(judge[k]+" ");
 					}
 					for(int k=i+1;k<judge.length-1;k++) {
 						back.append(judge[k]+" ");
 					}
-					fontlist = ex.process(font.toString());
-					backlist = ex.process(back.toString());
-					fontlist2 = ex.simpleTosuffix(fontlist);
-					backlist2 = ex.simpleTosuffix(backlist);
-					Fenshu fontfs = ex.count(fontlist2);
-					Fenshu backfs = ex.count(backlist2);
+					Fenshu fontfs = ex.count(font.toString());
+					Fenshu backfs = ex.count(back.toString());
 					String fontstr = fontfs.numerator+"/"+fontfs.denominator;
 					String backstr = backfs.numerator+"/"+backfs.denominator;
 					if(fs.compute(fontstr, backstr)) {

@@ -7,7 +7,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class build {
-	void build() throws IOException {
+	@SuppressWarnings("resource")
+	build() throws IOException {
 		Scanner scannernum;
 		Scanner scannersize;
 		int num=0;
@@ -48,9 +49,7 @@ public class build {
 						String result = i+1 + "." + res +"\r\n";
 						byte[] print = result.getBytes(); 
 						fosque.write(print);
-						java.util.List<String> list = ex.process(res);
-						java.util.List<String> list2 = ex.simpleTosuffix(list);
-						Fenshu ansresult = ex.count(list2);
+						Fenshu ansresult = ex.count(res);
 						String ansres = null;
 						if(ansresult.getDenominator()==1) {
 							ansres = i+1 + ". " +ansresult.getNumerator() + "\r\n";

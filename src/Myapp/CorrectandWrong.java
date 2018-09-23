@@ -10,12 +10,15 @@ import java.util.Scanner;
 
 public class CorrectandWrong {
 
-	void CorrectandWrong() throws IOException {
+	private Scanner scanner1;
+	private Scanner scanner2;
+
+	CorrectandWrong() throws IOException {
 		System.out.println("请输入试题文件名: ");
-		Scanner scanner1 = new Scanner(System.in);
+		scanner1 = new Scanner(System.in);
 		String Exefile = scanner1.nextLine();
 		System.out.println("请输入答案文件名: ");
-		Scanner scanner2 = new Scanner(System.in);
+		scanner2 = new Scanner(System.in);
 		String Ansfile = scanner2.nextLine();
 		File exefile = new File(Exefile);
 		File ansfile = new File(Ansfile);

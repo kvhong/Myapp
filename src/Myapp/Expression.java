@@ -109,7 +109,9 @@ public class Expression {
 	}
 	
 	//后缀表达式计算
-	public Fenshu count(List<String> list){
+	public Fenshu count(String str){
+		List<String> list2 = process(str);
+		List<String> list = simpleTosuffix(list2);
 		Stack<Fenshu> stack = new Stack<Fenshu>();
 		for(int i=0;i<list.size();i++){
 			String s = list.get(i);
